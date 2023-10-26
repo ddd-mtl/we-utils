@@ -1,10 +1,9 @@
-import {AppletServices, WeClient, WeServices} from "@lightningrodlabs/we-applet";
+import {AppletServices, WeClient} from "@lightningrodlabs/we-applet";
 import {setBasePath, getBasePath} from '@shoelace-style/shoelace/dist/utilities/base-path.js';
 import {delay, HappElement} from "@ddd-qc/lit-happ";
 import {setupDevtest} from "./setupDevtest";
-import {AppAgentClient, EntryHash} from "@holochain/client";
-import {ProfilesClient} from "@holochain-open-dev/profiles";
 import {createDefaultWeServicesMock} from "./mocks/weServicesMock";
+import {CreateAppletFn, CreateWeServicesMockFn, DevTestNames} from "./types";
 
 
 

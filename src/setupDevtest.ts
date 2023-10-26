@@ -5,7 +5,7 @@ import { ProfilesClient } from '@holochain-open-dev/profiles';
 import { ProfilesZomeMock } from "@holochain-open-dev/profiles/dist/mocks.js";
 import { setBasePath, getBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
 import {HappElement} from "@ddd-qc/lit-happ";
-import {CreateAppletFn, CreateWeServicesMockFn, DevTestNames} from "./setup";
+import {CreateAppletFn, CreateWeServicesMockFn, DevTestNames} from "./types";
 
 
 /** */
