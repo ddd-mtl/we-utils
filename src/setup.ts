@@ -1,32 +1,15 @@
-import {WeClient, WeServices} from "@lightningrodlabs/we-applet";
+import {AppletServices, WeClient, WeServices} from "@lightningrodlabs/we-applet";
 import {setBasePath, getBasePath} from '@shoelace-style/shoelace/dist/utilities/base-path.js';
 import {delay, HappElement} from "@ddd-qc/lit-happ";
-import {appletServices} from "../appletServices/appletServices";
 import {setupDevtest} from "./setupDevtest";
 import {AppAgentClient, EntryHash} from "@holochain/client";
 import {ProfilesClient} from "@holochain-open-dev/profiles";
 import {createDefaultWeServicesMock} from "./mocks/weServicesMock";
 
 
-export type CreateAppletFn = (
-    client: AppAgentClient,
-    thisAppletHash: EntryHash,
-    profilesClient: ProfilesClient,
-    weServices: WeServices
-) => Promise<HappElement>;
-
-
-export type CreateWeServicesMockFn = (devtestAppletId: string) => Promise<WeServices>;
-
-export interface DevTestNames {
-    installed_app_id: string,
-    provisionedRoleName: string,
-}
-
-
 
 /** */
-export async function setup(createApplet: CreateAppletFn, devtestNames: DevTestNames, createWeServicesMock?: CreateWeServicesMockFn): Promise<HappElement> {
+export async function setup(appletServices: AppletServices, createApplet: CreateAppletFn, devtestNames: DevTestNames, createWeServicesMock?: CreateWeServicesMockFn): Promise<HappElement> {
     let BUILD_MODE = "prod";
     try {
         BUILD_MODE = process.env.BUILD_MODE;
@@ -38,13 +21,13 @@ export async function setup(createApplet: CreateAppletFn, devtestNames: DevTestN
     if (BUILD_MODE == "devtest") {
         return setupDevtest(createApplet, devtestNames, createWeServicesMock? createWeServicesMock : createDefaultWeServicesMock);
     } else {
-        return setupProd(createApplet);
+        return setupProd(appletServices, createApplet);
     }
 }
 
 
 /** */
-export async function setupProd(createApplet: CreateAppletFn): Promise<HappElement> {
+export async function setupProd(appletServices: AppletServices, createApplet: CreateAppletFn): Promise<HappElement> {
     console.log("setup()");
 
     setBasePath('./');
