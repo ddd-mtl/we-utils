@@ -11,7 +11,7 @@ import {CreateAppletFn, CreateWeServicesMockFn, DevTestNames} from "./types";
 /** */
 export async function setupDevtest(createApplet: CreateAppletFn, names: DevTestNames, createWeServicesMock: CreateWeServicesMockFn)
     : Promise<HappElement> {
-    console.log("setupDevtest()", process.env.BUILD_MODE, process.env.HC_APP_PORT, process.env.HC_ADMIN_PORT);
+    console.log("setupDevtest()", process.env.HAPP_BUILD_MODE, process.env.HC_APP_PORT, process.env.HC_ADMIN_PORT);
 
     setBasePath('../../node_modules/@shoelace-style/shoelace/dist');
     console.log("shoelace basePath", getBasePath());
