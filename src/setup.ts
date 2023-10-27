@@ -1,6 +1,6 @@
 import {AppletServices, WeClient} from "@lightningrodlabs/we-applet";
 import {setBasePath, getBasePath} from '@shoelace-style/shoelace/dist/utilities/base-path.js';
-import {delay, HappElement} from "@ddd-qc/lit-happ";
+import {delay, HappElement, HAPP_ENV, HappEnvType} from "@ddd-qc/lit-happ";
 import {setupDevtest} from "./setupDevtest";
 import {createDefaultWeServicesMock} from "./mocks/weServicesMock";
 import {CreateAppletFn, CreateWeServicesMockFn, DevTestNames} from "./types";
@@ -9,15 +9,8 @@ import {CreateAppletFn, CreateWeServicesMockFn, DevTestNames} from "./types";
 
 /** */
 export async function setup(appletServices: AppletServices, createApplet: CreateAppletFn, devtestNames: DevTestNames, createWeServicesMock?: CreateWeServicesMockFn): Promise<HappElement> {
-    let BUILD_MODE = "prod";
-    try {
-        BUILD_MODE = process.env.BUILD_MODE;
-    } catch (e) {
-        console.log(`BUILD_MODE env variable not set. Defaulting to "prod".`)
-    }
-    console.log("BUILD_MODE", BUILD_MODE);
-
-    if (BUILD_MODE == "devtest") {
+    console.log("HAPP_ENV", HAPP_ENV);
+    if (HAPP_ENV == HappEnvType.DevtestWe) {
         return setupDevtest(createApplet, devtestNames, createWeServicesMock? createWeServicesMock : createDefaultWeServicesMock);
     } else {
         return setupProd(appletServices, createApplet);
